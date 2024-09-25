@@ -23,10 +23,12 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userId = $this->route('id');
         return [
             'nombre' => 'required|string|max:255',
-            'correo' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'correo' => 'required|email|unique:users,email,' . $userId,
+            //'password' => 'required|string|min:8|confirmed',
+            'password' => $this->isMethod('post') ? 'required|string|min:8|confirmed' : 'nullable|string|min:8|confirmed',
         ];
     }
 

@@ -36,4 +36,38 @@ class UserController extends Controller
             'data' => $user
         ], 201);
     }
+
+    public function show($id){
+        $user = User::find($id);
+        return compact('user');
+    }
+
+    public function update(UserRequest $request, $id){
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Usuario no encontrado'
+            ], 404); // 404 Not Found
+        }
+//dd($request->all());
+        $user->name = $request->input('nombre');
+        $user->email = $request->input('correo');
+        $user->password = bcrypt($request->input('password')); // Encripta la contraseña
+        $user->save();
+
+        //$user =User::where('id',$id)->update([
+        //    'name' => $request->nombre,
+        //    'email' => $request->correo,
+        //    'password' => Hash::make($request->password),
+        //]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Usuario actualizado con éxito',
+            'data' => $user
+        ], 201);
+    }
 }

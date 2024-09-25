@@ -10,3 +10,7 @@ Route::get('/', function () {
 Route::get('/user', [UserController::class, 'index']);
 
 Route::post('/create', [UserController::class, 'store']);
+
+Route::get('/show/{id}', [UserController::class, 'show']);
+
+Route::put('/update/{id}', [UserController::class, 'update']);
