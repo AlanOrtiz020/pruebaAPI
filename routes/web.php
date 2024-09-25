@@ -14,3 +14,5 @@ Route::post('/create', [UserController::class, 'store']);
 Route::get('/show/{id}', [UserController::class, 'show']);
 
 Route::put('/update/{id}', [UserController::class, 'update']);
+
+Route::delete('/delete/{id}', [UserController::class, 'destroy']);
